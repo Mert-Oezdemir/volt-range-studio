@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Explore how trip settings change a fictional electric vehicle's range.">
+  <title>Volt Range Studio | Electric trip simulator</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header><span class="brand">Volt Range Studio</span><p>Fictional vehicle lab</p></header>
+    <section class="dashboard" aria-labelledby="title">
+      <div class="instrument">
+        <h1 id="title">How far on a charge?</h1>
+        <p>Configure the Arc Finch and see how range changes with your route.</p>
+        <div class="reading"><output id="range" for="battery speed temperature charge" aria-live="polite">–</output><span>km estimated range</span></div>
+        <svg viewBox="0 0 700 270" role="img" aria-labelledby="car-title">
+          <title id="car-title">Side profile of the fictional Arc Finch electric car</title>
+          <path d="M0 222h700M0 237h700M0 252h700" stroke="#8998c5" fill="none" opacity=".55"/>
+          <path d="M350 30v190M100 74v146M600 74v146" stroke="#8998c5" opacity=".4" stroke-dasharray="5 9"/>
+          <ellipse cx="360" cy="224" rx="261" ry="18" fill="#121a3d" opacity=".3"/>
+          <path d="M86 176q11-38 54-52l100-23 55-43q15-11 41-11h95q29 0 57 26l62 54 54 15q23 7 29 39l-8 24H79Z" fill="#ffcfaa" stroke="#222954" stroke-width="5"/>
+          <path d="M254 105 307 65q10-7 30-7h83q22 0 46 19l42 36Z" fill="#35436c" stroke="#222954" stroke-width="5"/>
+          <path d="m381 58 8 57-10 51m-125-61-6 62m259-54 22 49M272 131h23m127 4h23" stroke="#222954" stroke-width="4" fill="none"/>
+          <path d="M87 173h41l12-16-41 4m483-3 27 9 11 12h-32" fill="#fff2dc" stroke="#222954" stroke-width="3"/>
+          <path d="M90 190h532l-6 15H83Z" fill="#7583a5"/>
+          <g fill="#222954" stroke="#222954" stroke-width="5">
+            <circle cx="179" cy="200" r="42"/><circle cx="529" cy="200" r="42"/>
+          </g>
+          <g fill="#b7c7ea" stroke="#7682a8" stroke-width="5">
+            <circle cx="179" cy="200" r="22"/><circle cx="529" cy="200" r="22"/>
+          </g>
+          <g fill="#222954"><circle cx="179" cy="200" r="6"/><circle cx="529" cy="200" r="6"/></g>
+        </svg>
+        <dl class="readout">
+          <div><dt>Consumption</dt><dd id="efficiency"></dd></div>
+          <div><dt>Energy available</dt><dd id="energy"></dd></div>
+        </dl>
+      </div>
+      <form class="controls">
+        <h2>Trip settings</h2>
+        <div class="scenarios" role="group" aria-label="Trip presets">
+          <button type="button" data-preset="city">City loop</button>
+          <button type="button" data-preset="motorway">Motorway</button>
+          <button type="button" data-preset="winter">Winter route</button>
+        </div>
+        <div class="field"><label for="battery">Battery pack</label><select id="battery"><option value="52">52 kWh</option><option value="69" selected>69 kWh</option><option value="82">82 kWh</option></select></div>
+        <div class="field"><label for="speed">Cruising speed</label><output id="speed-text" for="speed"></output><input id="speed" type="range" min="25" max="135" value="85"></div>
+        <div class="field"><label for="temperature">Outside temperature</label><output id="temperature-text" for="temperature"></output><input id="temperature" type="range" min="-20" max="40" value="20"></div>
+        <div class="field"><label for="charge">Starting charge</label><output id="charge-text" for="charge"></output><input id="charge" type="range" min="10" max="100" value="85"></div>
+        <details><summary>How the estimate works</summary><p>The model adds a drag penalty above 45 km/h, plus a heating or cooling allowance away from 20 °C. It keeps 5% of the pack in reserve. These inputs and results are illustrative.</p></details>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
